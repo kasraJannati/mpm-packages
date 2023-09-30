@@ -1,13 +1,15 @@
 {
   "name": "mpm-packages",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/mpm-packages.umd.js", 
+  "module": "dist/mpm-packages.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kasra Jannati",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.8.0",
@@ -30,7 +32,5 @@
       "prettier --write",
       "git add"
     ]
-  },
-  "types": "dist/index.d.ts"
-
+  }
 }
