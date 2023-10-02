@@ -1,12 +1,17 @@
 module.exports = {
-    extends: ['eslint:recommended', 'plugin:prettier/recommended'],
-    ignorePatterns: ['.eslintrc.js'],
-    parser: '@typescript-eslint/parser',
-    rules: {
-      // Add any additional rules or overrides here
-    },
-    env: {
-      node: true,
-      jest: true,
-    },
-  };
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+  ],
+  ignorePatterns: ['.eslintrc.js'],
+  env: {
+    node: true,
+    jest: true,
+  },
+  rules: {
+    // Add any additional rules or overrides here
+  },
+};
