@@ -1,1 +1,1 @@
-export { getTodaysDate } from './BaseIntComponent'; 
+export * from './BaseIntComponent'; 

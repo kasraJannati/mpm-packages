@@ -1,10 +1,8 @@
 {
   "name": "mpm-packages",
-  "version": "1.0.1",
+  "version": "1.0.02",
   "description": "",
   "main": "dist/mpm-packages.umd.js", 
-  "module": "dist/mpm-packages.mjs",
-  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
