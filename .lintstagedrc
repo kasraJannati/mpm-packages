@@ -1,0 +1,5 @@
+{
+  "src/**/*.ts": ["eslint --fix", "prettier --write"],
+  "src/**/!(package-lock)*.json": ["prettier --write"],
+  "package.json": ["prettier --write"]
+}
