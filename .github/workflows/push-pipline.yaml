@@ -23,9 +23,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      # - name: Run unit tests with coverage
-      #   run: yarn run test:unit --coverage
-
       - name: Build package
         run: npx vite build
 
