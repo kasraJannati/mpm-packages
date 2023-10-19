@@ -1,8 +1,8 @@
 {
   "name": "mpm-packages",
-  "version": "1.0.11",
+  "version": "1.0.14",
   "description": "",
-  "main": "dist/mpm-packages.umd.js", 
+  "main": "dist/mpm-packages.umd.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

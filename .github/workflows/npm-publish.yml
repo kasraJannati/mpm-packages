@@ -35,12 +35,16 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.18.2
+          registry-url: 'https://registry.npmjs.org'
 
       - run: yarn install
-      - run: yarn config set //registry.npmjs.org/:_authToken ${NPM_TOKEN:?}
-        env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+      # - run: yarn config set //registry.npmjs.org/:_authToken ${NPM_TOKEN:?}
+        # env:
+        #   NPM_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: yarn publish --no-git-checks
+
+       env:
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: Clean Up Build Artifacts
         run: |
