@@ -51,15 +51,15 @@ jobs:
     needs: publish-npm
     runs-on: ubuntu-latest
     steps:
-      - name: Get Package Version
-        id: get-package-version
-        run: echo ::set-output name=version::$(node -e "console.log(require('../../package.json').version)")
-
-      - name: Create Release
-        id: create-release
-        uses: softprops/action-gh-release@v1
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
-          files: |
-            package.json
-          tag_name: v${{ steps.get-package-version.outputs.version }}
-          token: ${{ secrets.NPM_TOKEN }}
+          tag_name:  test
+          release_name: Release 10
+          body_path: ./release_notes.md
+          draft: false
+          prerelease: false
+    
