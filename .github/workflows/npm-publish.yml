@@ -14,6 +14,10 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -30,35 +34,26 @@ jobs:
       - name: Build package
         run: npx vite build
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18.18.2
-      - name: Configure NPM Auth Token
-        run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN:?}
-        env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-      - name: Publish Package
-        run: npm publish
+      - name: Semantic release
+        run: npx semantic-release
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
-  create-release:
-    needs: publish-npm
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create release
-        id: create_release
-        uses: gh-actions/github-release@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
-        with:
-          tag_name:  ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+  # publish-npm:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18.18.2
+  #     - name: Configure NPM Auth Token
+  #       run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN:?}
+  #       env:
+  #         NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+  #     - name: Publish Package
+  #       run: npm publish
+  #       env:
+  #         NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+
     
