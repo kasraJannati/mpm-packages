@@ -30,27 +30,12 @@ jobs:
       - name: Build package
         run: npx vite build
 
+  semantic-release:
+    needs: build  
+    runs-on: ubuntu-latest
+    steps:
       - name: Semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
-
-  # publish-npm:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 18.18.2
-  #     - name: Configure NPM Auth Token
-  #       run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN:?}
-  #       env:
-  #         NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-  #     - name: Publish Package
-  #       run: npm publish
-  #       env:
-  #         NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-  #
-  #
