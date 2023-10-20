@@ -41,7 +41,7 @@ jobs:
       - name: Check for version change
         id: version-check
         run: |
-          if [ -n "$(git diff --name-only HEAD^ HEAD | grep package.json)" ]; then
+          if [ -n "$(git diff --name-only HEAD~1 HEAD | grep package.json)" ]; then
             echo "version_changed=true"
           fi
 
