@@ -33,11 +33,11 @@ jobs:
 
       - name: Build package
         run: npx vite build
-
+        
       - name: Semantic release
-        run: npx semantic-release
         env:
-          NPM_TOKEN: ${{secrets.GH_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
 
   # publish-npm:
   #   needs: build
