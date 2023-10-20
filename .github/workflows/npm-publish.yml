@@ -3,14 +3,18 @@
 
 name: Node.js Package
 
+# on:
+#   release:
+#     types: [created]
+
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - "master"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -26,23 +30,54 @@ jobs:
       - name: Build package
         run: npx vite build
 
-  publish-npm:
+  check-version:
     needs: build
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Check for version change
+        id: version-check
+        run: |
+          if [ -n "$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep package.json)" ]; then
+            echo "::set-output name=version_changed::true"
+          else
+            echo "::set-output name=version_changed::false"
+          fi
+        shell: bash
 
+
+  publish-npm:
+    needs: check-version
+    if: needs.check-version.outputs.version_changed == 'true'
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18.18.2
-
       - name: Configure NPM Auth Token
         run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN:?}
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-
       - name: Publish Package
         run: npm publish
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  release:
+    needs: publish-npm
+    if: needs.check-version.outputs.version_changed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create-release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            package.json
+          tag_name: v${{ steps.version-check.outputs.version_changed }}
+          token: ${{ secrets.NPM_TOKEN }}
+
+
           
