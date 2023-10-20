@@ -10,10 +10,6 @@ on:
 
 jobs:
   build:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -30,10 +26,14 @@ jobs:
       - name: Build package
         run: npx vite build
 
-  # semantic-release:
-  #   needs: build  
-  #   runs-on: ubuntu-latest
-  #   steps:
+  semantic-release:
+    needs: build  
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
       - name: Semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
