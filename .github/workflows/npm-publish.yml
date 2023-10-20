@@ -30,29 +30,8 @@ jobs:
       - name: Build package
         run: npx vite build
 
-  check-version:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Check for version change
-        id: version-check
-        run: |
-          if [ -n "$(git diff --name-only HEAD^ HEAD -- package.json)" ]; then
-            echo "version_changed=true"
-          fi
-
-
-      - name: Set outputs
-        if: steps.version-check.outputs.version_changed == 'true'
-        run: echo "Version has changed."
-
-
   publish-npm:
-    needs: check-version
+    needs: build
     if: needs.check-version.outputs.version_changed == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -71,17 +50,17 @@ jobs:
 
   release:
     needs: publish-npm
-    if: needs.check-version.outputs.version_changed == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Get Package Version
+        id: get-package-version
+        run: echo ::set-output name=version::$(node -e "console.log(require('./package.json').version)")
+
       - name: Create Release
         id: create-release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             package.json
-          tag_name: v${{ steps.version-check.outputs.version_changed }}
+          tag_name: v${{ steps.get-package-version.outputs.version }}
           token: ${{ secrets.NPM_TOKEN }}
-
-
-          
