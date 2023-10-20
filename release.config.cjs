@@ -11,6 +11,13 @@ module.exports = {
         '@semantic-release/github', // it creates the release itself, also creates the tag with the correct verion for us 
         //: This plugin handles the creation of releases on GitHub, including tagging with the correct version.
 
-        '@semantic-release/npm'
+        '@semantic-release/npm',
+
+
+
+        ["@semantic-release/git", {
+            "assets": ["package.json"],
+            "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }]
     ]
   };
