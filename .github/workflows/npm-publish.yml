@@ -46,7 +46,3 @@ jobs:
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
           
-      - name: Clean Up Build Artifacts
-        run: |
-          # Remove the "dist" directory
-          rm -rf dist
