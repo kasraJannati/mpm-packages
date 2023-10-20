@@ -32,7 +32,6 @@ jobs:
 
   publish-npm:
     needs: build
-    if: needs.check-version.outputs.version_changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
