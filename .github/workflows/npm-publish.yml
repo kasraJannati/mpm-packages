@@ -33,15 +33,21 @@ jobs:
   check-version:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+
       - name: Check for version change
         id: version-check
         run: |
           if [ -n "$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep package.json)" ]; then
-            echo "name=version_changed=true" >> $GITHUB_STATE
-        shell: bash
+            echo "version_changed=true"
+          fi
+
+      - name: Set outputs
+        if: steps.version-check.outputs.version_changed == 'true'
+        run: echo "Version has changed."
 
 
   publish-npm:
