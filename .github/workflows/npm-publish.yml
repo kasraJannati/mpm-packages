@@ -47,19 +47,18 @@ jobs:
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
-  release:
+  create-release:
     needs: publish-npm
     runs-on: ubuntu-latest
     steps:
       - name: Create release
         id: create_release
-        uses: actions/create-release@v3
+        uses: gh-actions/github-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
-          tag_name:  test
-          release_name: Release 10
-          # body_path: tes
+          tag_name:  ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
     
