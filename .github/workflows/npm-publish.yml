@@ -3,10 +3,6 @@
 
 name: Node.js Package
 
-# on:
-#   release:
-#     types: [created]
-
 on:
   push:
     branches:
@@ -37,7 +33,6 @@ jobs:
       - name: Semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
         run: npx semantic-release
 
