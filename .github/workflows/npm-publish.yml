@@ -59,7 +59,7 @@ jobs:
         with:
           tag_name:  test
           release_name: Release 10
-          body_path: ./release_notes.md
+          body_path: tes
           draft: false
           prerelease: false
     
