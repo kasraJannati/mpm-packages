@@ -40,9 +40,9 @@ jobs:
         id: version-check
         run: |
           if [ -n "$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep package.json)" ]; then
-            echo "name=version_changed=true" >> $GITHUB_STATE
+            echo "name=version_changed::true" >> $GITHUB_STATE
           else
-            echo "name=version_changed=false" >> $GITHUB_STATE
+            echo "name=version_changed::false" >> $GITHUB_STATE
           fi
         shell: bash
 
