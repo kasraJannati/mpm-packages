@@ -1,11 +1,11 @@
-name: Test
+name: Check unit testing
 
 on:
   workflow_dispatch:
   pull_request:
 
 jobs:
-  test:
+  pr-checks:
     name: pr-checks
     runs-on: ubuntu-latest
 
@@ -16,7 +16,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }} 
 
           # The path to where you are generating all the checks YAML/JSON files in your build, this supports glob patterns.
-          checks-path: '**/.checks/*'
+          checks-path: 'sample-checks/*'
 
           # A YAML document with an array of checks you want to add to the PR directly from your workflow.
           checks: |
