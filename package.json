@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/mpm-packages.umd.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "keywords": [],
   "author": "Kasra Jannati",
@@ -21,6 +21,7 @@
     "prettier": "^3.0.3",
     "semantic-release": "^22.0.5",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vitest": "^0.34.6"
   }
 }
