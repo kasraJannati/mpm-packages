@@ -10,15 +10,18 @@ jobs:
     steps:
       - uses: patriknyblad/add-pr-checks@v1.0.0
         with:
-          name: Code Coverage
-          # String
-          value: 87%
-          # String?
-          summary: |
-            # Current code coverage of the app
-            To improve upon this metric we as developers have to add more unit tests covering more lines of code in our codebase.
-          text: |
-            ## Details
-            Things to focus on...
-            **Here is a list of things to look at:**
-            - npm run test
+          # Your Github API token. Recommended to use as a secret ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.GH_TOKEN }} 
+
+          # The path to where you are generating all the checks YAML/JSON files in your build, this supports glob patterns.
+          checks-path: '**/.checks/*'
+
+          # A YAML document with an array of checks you want to add to the PR directly from your workflow.
+          checks: |
+            name: Code Coverage
+            value: 87%
+            summary: |
+              To improve upon this metric we as developers have to add more unit tests covering more lines of code in our codebase.
+            text: |
+              Things to focus on...
+              - npm run test
