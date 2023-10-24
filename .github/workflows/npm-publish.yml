@@ -34,7 +34,7 @@ jobs:
         run: npm run test
 
       - name: Temporarily disable "include administrators" branch protection
-        uses: benjefferies/branch-protection-bot@master
+        uses: benjefferies/branch-protection-bot@v2
           if: always()
           with:
             access_token: ${{ secrets.GH_TOKEN }}
@@ -48,7 +48,7 @@ jobs:
         run: npx semantic-release
 
       - name: Enable "include administrators" branch protection
-        uses: benjefferies/branch-protection-bot@master
+        uses: benjefferies/branch-protection-bot@v2
         if: always()
         with:
           access_token: ${{ secrets.GH_TOKEN }}
