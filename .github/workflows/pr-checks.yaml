@@ -3,23 +3,22 @@ name: Check unit testing
 on:
   pull_request:
 
-permissions:
-  contents: read
-  actions: read
-  checks: write
 jobs:
   build-test:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3     # checkout the repo
-      - run: npm install                   # install packages
-      - run: npm run test                 # run tests (configured to use jest-junit reporter)
-
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
+      - uses: patriknyblad/add-pr-checks@v1.0.0
         with:
-          name: JEST Tests            # Name of the check run which will be created
-          path: reports/jest-*.xml    # Path to test results
-          reporter: jest-junit        # Format of test results
+          name: Code Coverage
+          # String
+          value: 87%
+          # String?
+          summary: |
+            # Current code coverage of the app
+            To improve upon this metric we as developers have to add more unit tests covering more lines of code in our codebase.
+          text: |
+            ## Details
+            Things to focus on...
+            **Here is a list of things to look at:**
+            - npm run test
