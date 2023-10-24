@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: code
-      - uses: patriknyblad/add-pr-checks@v1.0.0
+        uses: patriknyblad/add-pr-checks@v1.0.0
         with:
           token: ${{ secrets.GH_TOKEN }} 
           checks: |
