@@ -1,6 +1,6 @@
 {
-  "name": "mpm-packages",
-  "version": "1.4.3",
+  "name": "mpm-packages-new",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/mpm-packages.umd.js",
   "scripts": {
