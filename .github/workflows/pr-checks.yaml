@@ -25,10 +25,11 @@ jobs:
         run: npm install
 
       - name: Build package
-        run: npx vite build
-
+        run: npm run test
 
       - name: check new
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         uses: patriknyblad/add-pr-checks@v1.0.0
         with:
           # Your Github API token. Recommended to use as a secret ${{ secrets.GITHUB_TOKEN }} 
