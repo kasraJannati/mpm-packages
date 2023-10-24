@@ -12,6 +12,9 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,16 +31,7 @@ jobs:
         run: npm run test
 
       - name: check new
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         uses: patriknyblad/add-pr-checks@v1.0.0
         with:
-          # Your Github API token. Recommended to use as a secret ${{ secrets.GITHUB_TOKEN }} 
-          token: ${{ secrets.GH_TOKEN }} 
-
-          # The path to where you are generating all the checks YAML/JSON files in your build, this supports glob patterns.
+          token: ${{ secrets.GH_TOKEN }}
           checks-path: 'sample-checks/*'
-
-          
-      
-    
