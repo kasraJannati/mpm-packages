@@ -1,9 +1,14 @@
 on:
   pull_request:
+    branches:
+      - '*'
+      - '!master'
+
 permissions:
   contents: read
   actions: read
   checks: write
+  
 jobs:
   build-test:
     name: Build & Test
