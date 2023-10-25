@@ -18,11 +18,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18.18.2
+          persist-credentials: false
 
       - name: Install dependencies
         run: npm install
